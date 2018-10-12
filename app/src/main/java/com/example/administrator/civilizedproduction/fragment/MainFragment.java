@@ -1,17 +1,52 @@
 package com.example.administrator.civilizedproduction.fragment;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-public class MainFragment extends Fragment {
-    @Nullable
+import com.example.administrator.civilizedproduction.R;
+import com.example.administrator.civilizedproduction.model.Crime;
+import com.example.administrator.civilizedproduction.model.CrimeLab;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainFragment extends ListFragment {
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
+        ArrayList<Crime> mCrimes = CrimeLab.get(getContext()).getmCrimes();
+        CrimeAdapter crimeAdapter = new CrimeAdapter(mCrimes);
+        setListAdapter(crimeAdapter);
+        return inflater.inflate(R.layout.fragment_main,container,false);
+
+    }
+    private class CrimeAdapter extends ArrayAdapter<Crime>{
+        public CrimeAdapter(ArrayList<Crime> crimes){
+            super(getActivity(),0,crimes);
+        }
+
+
+        @Override
+        public View getView(int position,  View convertView,  ViewGroup parent) {
+            //如果没有生成view，创建一个新的view
+            if (convertView==null){
+                convertView = getActivity().getLayoutInflater()
+                        .inflate(R.layout.fragment_main,null);
+            }
+            //设置视图显示列表
+            Crime c = getItem(position);
+            TextView expalinTextView = (TextView) convertView.findViewById(R.id.crime_explain);
+            TextView departTextView = convertView.findViewById(R.id.crime_department);
+            TextView markTextView = convertView.findViewById(R.id.crime_mark);
+            return convertView;
+        }
     }
 }

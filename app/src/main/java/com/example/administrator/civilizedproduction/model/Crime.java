@@ -4,6 +4,12 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Crime {
+
+    private String mExpalin;
+    private String mDepartmentName;
+    private String mUrlPicture;
+    private String mTitle;
+    private int mark;
     private UUID mId;
 
     public String getmExpalin() {
@@ -14,11 +20,13 @@ public class Crime {
         this.mExpalin = mExpalin;
     }
 
-    private String mExpalin;
-    private String mDepartmentName;
-    private String mUrlPicture;
-    private int mark;
+    public String getmTitle() {
+        return mTitle;
+    }
 
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
+    }
 
     public String getmUrlPicture() {
         return mUrlPicture;
